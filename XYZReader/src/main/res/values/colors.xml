@@ -21,5 +21,8 @@
     <color name="theme_accent">#7C4DFF</color>
     <color name="theme_text_primary">#212121</color>
     <color name="theme_text_secondary">#727272</color>
-    <color name="theme_background">#B6B6B6</color>
+
+    <color name="bg_list_item_image">#e0e0e0</color>
+    <color name="bg_activity_article_list">#757575</color>
+    <color name="text_link">#2196f3</color>
 </resources>

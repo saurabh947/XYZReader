@@ -1,9 +1,9 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg_activity_article_list">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -18,8 +18,7 @@
             android:paddingBottom="28dp"
             android:paddingLeft="@dimen/list_side_margin"
             android:paddingRight="@dimen/list_side_margin"
-            android:paddingTop="?actionBarSize"
-            android:scrollbarStyle="outsideOverlay"/>
+            android:paddingTop="?actionBarSize"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <FrameLayout
@@ -32,8 +31,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:theme="@style/AppTheme">
+            android:layout_height="?actionBarSize">
 
             <ImageView
                 android:layout_width="wrap_content"
