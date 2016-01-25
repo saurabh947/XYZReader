@@ -11,4 +11,6 @@
     <dimen name="common_padding_small">4dp</dimen>
     <dimen name="common_padding_medium">8dp</dimen>
     <dimen name="common_padding_large">16dp</dimen>
+
+    <dimen name="card_margin">16dp</dimen>
 </resources>
