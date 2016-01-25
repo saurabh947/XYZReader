@@ -6,18 +6,18 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v13.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
@@ -31,37 +31,62 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
 
     private Cursor mCursor;
     private MyPagerAdapter mPagerAdapter;
+    private long mArticleId;
+    private Toolbar mToolbar;
+    private FloatingActionButton mFloatingActionButton;
+    private CollapsingToolbarLayout mCollapsingToolbar;
+    private ImageView mArticleImage;
+    private TextView mArticleTitle, mArticleSubtitle, mArticleBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
 
-        Intent intent = getIntent();
-        final String articleId = intent.getStringExtra(EXTRA_NAME);
+        if (savedInstanceState == null) {
+            if (getIntent() != null && getIntent().getData() != null) {
+                mArticleId = ItemsContract.Items.getItemId(getIntent().getData());
+            }
+        }
+        initComponents();
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        final String articleId = getIntent().getStringExtra(EXTRA_NAME);
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+    private void initComponents() {
+        mArticleImage = (ImageView) findViewById(R.id.article_image);
+        mArticleTitle = (TextView) findViewById(R.id.article_title);
+
+        mArticleSubtitle = (TextView) findViewById(R.id.article_subtitle);
+        mArticleSubtitle.setMovementMethod(new LinkMovementMethod());
+
+        mArticleBody = (TextView) findViewById(R.id.article_body);
+        mArticleBody.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(cheeseName);
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mCollapsingToolbar.setTitle(cheeseName);
 
-
-
-        getLoaderManager().initLoader(0, null, this);
+        mFloatingActionButton = (FloatingActionButton) findViewById(R.id.action_share);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: FAB Share
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
 
         mPagerAdapter = new MyPagerAdapter(getFragmentManager());
-
-        if (savedInstanceState == null) {
-            if (getIntent() != null && getIntent().getData() != null) {
-                mStartId = ItemsContract.Items.getItemId(getIntent().getData());
-                mSelectedItemId = mStartId;
-            }
-        }
     }
 
     @Override
@@ -77,7 +102,6 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         // Select the start ID
         if (mStartId > 0) {
             mCursor.moveToFirst();
-            // TODO: optimize
             while (!mCursor.isAfterLast()) {
                 if (mCursor.getLong(ArticleLoader.Query._ID) == mStartId) {
                     final int position = mCursor.getPosition();

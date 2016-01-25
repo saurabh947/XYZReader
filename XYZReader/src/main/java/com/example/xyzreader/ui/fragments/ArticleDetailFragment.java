@@ -41,10 +41,6 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
 
     private Cursor mCursor;
 
-
-    public ArticleDetailFragment() {
-    }
-
     public static ArticleDetailFragment newInstance(long itemId) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
@@ -60,51 +56,8 @@ public class ArticleDetailFragment extends Fragment implements LoaderManager.Loa
         getLoaderManager().initLoader(0, null, this);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItemId = getArguments().getLong(ARG_ITEM_ID);
-        }
-
-        mArticleImage = (ImageView)rootView.findViewById(R.id.article_image);
-        mArticleTitle = (TextView)rootView.findViewById(R.id.article_title);
-        mArticleSubtitle = (TextView)rootView.findViewById(R.id.article_subtitle);
-
-        final Toolbar toolbar = (Toolbar)rootView.findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(cheeseName);
-
-        rootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
-                        .setType("text/plain")
-                        .setText("Some sample text")
-                        .getIntent(), getString(R.string.action_share)));
-            }
-        });
-
-        bindViews();
-        return rootView;
-    }
-
     private void bindViews() {
-        if (mRootView == null) {
-            return;
-        }
-
-        TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
-        TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
-        bylineView.setMovementMethod(new LinkMovementMethod());
-        TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
-        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
-
+        // TODO: From here ------------------------------>>>>>>>>>>>>>>>>>
         if (mCursor != null) {
             mRootView.setAlpha(0);
             mRootView.setVisibility(View.VISIBLE);
