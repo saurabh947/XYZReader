@@ -9,4 +9,5 @@
 
     <string name="article_image_description">Article Image</string>
 
+    <string name="toast_error_cursor">Error retrieving article details!</string>
 </resources>

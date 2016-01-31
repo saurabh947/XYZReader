@@ -2,6 +2,7 @@
     android:id="@+id/main_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -18,9 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginStart="24dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -62,17 +62,21 @@
                     style="?android:attr/textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#8fff"/>
+                    android:layout_marginBottom="@dimen/common_padding_medium"
+                    android:textColor="@color/theme_text_primary"
+                    android:textColorLink="@color/text_link"
+                    tools:text="Subtitle"/>
 
                 <TextView
                     android:id="@+id/article_body"
-                    style="?android:attr/textAppearanceMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_padding_medium"
                     android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
                     android:textColor="@color/theme_text_primary"
                     android:textColorLink="@color/text_link"
-                    android:textSize="@dimen/detail_body_text_size"/>
+                    android:textSize="@dimen/detail_body_text_size"
+                    tools:text="Body"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </android.support.v4.widget.NestedScrollView>

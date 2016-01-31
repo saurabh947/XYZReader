@@ -37,7 +37,7 @@
             android:ellipsize="end"
             android:padding="@dimen/common_padding_medium"
             android:paddingTop="@dimen/common_padding_small"
-            android:singleLine="true"
+            android:maxLines="2"
             android:textColor="@color/theme_text_secondary"
             tools:text="Subtitle"/>
     </LinearLayout>
