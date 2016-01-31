@@ -1,6 +1,6 @@
 package com.example.xyzreader.ui.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
@@ -13,14 +13,15 @@ import android.widget.TextView;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
+import com.example.xyzreader.ui.activities.ArticleDetailActivity;
 import com.example.xyzreader.ui.views.DynamicHeightNetworkImageView;
 import com.example.xyzreader.utils.ImageLoaderHelper;
 
 public class ArticleListAdapter extends RecyclerView.Adapter<ViewHolder> {
     private Cursor mCursor;
-    private Context mContext;
+    private Activity mContext;
 
-    public ArticleListAdapter(Context context, Cursor cursor) {
+    public ArticleListAdapter(Activity context, Cursor cursor) {
         mContext = context;
         mCursor = cursor;
     }
@@ -38,8 +39,10 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ViewHolder> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.startActivity(new Intent(Intent.ACTION_VIEW,
-                        ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                Intent intent = new Intent(mContext, ArticleDetailActivity.class);
+                intent.putExtra("articleId",
+                        ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())).getLastPathSegment());
+                mContext.startActivity(intent);
             }
         });
         return vh;

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -24,7 +25,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.utils.ImageLoaderHelper;
 
 /**
@@ -38,6 +38,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
     private Toolbar mToolbar;
     private FloatingActionButton mFloatingActionButton;
     private CollapsingToolbarLayout mCollapsingToolbar;
+    private Palette.PaletteAsyncListener mPaletteAsyncListener;
     private ImageView mArticleImage;
     private TextView mArticleSubtitle, mArticleBody;
 
@@ -47,9 +48,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
         setContentView(R.layout.activity_article_detail);
 
         if (savedInstanceState == null) {
-            if (getIntent() != null && getIntent().getData() != null) {
-                mArticleId = ItemsContract.Items.getItemId(getIntent().getData());
-            }
+            mArticleId = Long.parseLong(getIntent().getStringExtra("articleId"));
         }
         initComponents();
         getLoaderManager().initLoader(0, null, this);
@@ -83,6 +82,16 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
                 startActivity(sendIntent);
             }
         });
+
+        mPaletteAsyncListener = new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                mCollapsingToolbar.setContentScrimColor(palette.getLightVibrantColor(
+                        getResources().getColor(R.color.theme_primary)));
+                getWindow().setStatusBarColor(palette.getDarkMutedColor(
+                        getResources().getColor(R.color.theme_primary_dark)));
+            }
+        };
     }
 
     private void syncUi() {
@@ -106,6 +115,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
                             if (bitmap != null) {
                                 mArticleImage.setImageBitmap(bitmap);
                                 mArticleImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                Palette.from(bitmap).generate(mPaletteAsyncListener);
                             }
                         }
 

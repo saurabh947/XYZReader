@@ -1,4 +1,4 @@
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,20 +9,19 @@
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="?actionBarSize">
+        android:layout_marginTop="?actionBarSize">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingBottom="28dp"
+            android:paddingBottom="24dp"
             android:paddingLeft="@dimen/list_side_margin"
             android:paddingRight="@dimen/list_side_margin"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <FrameLayout
-        android:id="@+id/toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/theme_primary"
@@ -39,6 +38,5 @@
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/logo"/>
         </android.support.v7.widget.Toolbar>
-
     </FrameLayout>
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -23,6 +23,8 @@
         <item name="android:colorAccent">@color/theme_accent</item>
         <item name="android:textColorPrimary">@color/theme_text_primary</item>
         <item name="android:textColorSecondary">@color/theme_text_secondary</item>
+        <item name="android:windowActivityTransitions">true</item>
+
     </style>
 
     <style name="Widget.CardContent" parent="android:Widget">
@@ -31,7 +33,7 @@
         <item name="android:paddingTop">@dimen/common_padding_xlarge</item>
         <item name="android:paddingBottom">@dimen/common_padding_xlarge</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:elevation">@dimen/common_padding_small</item>
+        <item name="android:elevation">@dimen/card_elevation</item>
     </style>
 
 </resources>
